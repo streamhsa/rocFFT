@@ -114,17 +114,18 @@ option( BUILD_VERBOSE "Output additional build information" OFF )
 option( BUILD_SHARED_LIBS "Build rocFFT as a shared library" ON )
 
 # Find HCC/HIP dependencies
-if( CMAKE_CXX_COMPILER MATCHES ".*/hcc$|.*/hipcc$" )
+#if( CMAKE_CXX_COMPILER MATCHES ".*/hcc$|.*/hipcc$" )
+if( CMAKE_CXX_COMPILER MATCHES ".*/hcc$" )
   message( STATUS "Building with ROCm tools" )
   find_package( hcc REQUIRED CONFIG PATHS /opt/rocm )
-endif( )
 
 # Hip headers required of all clients; clients use hip to allocate device memory
-find_package( hip REQUIRED CONFIG PATHS /opt/rocm )
-
+  find_package( hip REQUIRED CONFIG PATHS /opt/rocm )
+endif( )
 # Quietly look for CUDA, but if not found it's not an error
 # The presense of hip is not sufficient to determine if we want a rocm or cuda backend
-find_package( CUDA QUIET )
+#find_package( CUDA QUIET )
+
 
 # CMake list of machine targets
 set( AMDGPU_TARGETS gfx803;gfx900 CACHE STRING "List of specific machine types for library to target" )

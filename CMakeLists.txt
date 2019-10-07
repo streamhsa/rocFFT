@@ -122,6 +122,15 @@ include( ROCMInstallSymlinks )
 set ( VERSION_STRING "0.9.6" )
 rocm_setup_version( VERSION ${VERSION_STRING} )
 
+set ( LIB_VERSION_MAJOR 0 )
+set ( LIB_VERSION_MINOR 1 )
+if (DEFINED  ENV{ROCM_LIBPATCH_VERSION})
+    set (LIB_VERSION_PATCH $ENV{ROCM_LIBPATCH_VERSION})
+else ()
+    set (LIB_VERSION_PATCH  0 )
+endif()
+set ( LIB_VERSION_STRING "${LIB_VERSION_MAJOR}.${LIB_VERSION_MINOR}.${LIB_VERSION_PATCH}" )
+
 # Append our library helper cmake path and the cmake path for hip (for convenience)
 # Users may override HIP path by specifying their own in CMAKE_MODULE_PATH
 list( APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake )

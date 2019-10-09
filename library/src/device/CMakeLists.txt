@@ -117,7 +117,8 @@ target_include_directories( rocfft-device
           $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>
 )
 
-rocm_set_soversion( rocfft-device ${rocfft_SOVERSION} )
+set_target_properties(rocfft-device PROPERTIES SOVERSION ${LIB_VERSION_MAJOR} )
+set_target_properties(rocfft-device PROPERTIES VERSION ${LIB_VERSION_STRING} )
 set_target_properties( rocfft-device PROPERTIES CXX_EXTENSIONS NO )
 set_target_properties( rocfft-device PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/staging" )
 set_target_properties( rocfft-device PROPERTIES DEBUG_POSTFIX "-d" )

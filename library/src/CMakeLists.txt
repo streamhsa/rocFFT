@@ -74,6 +74,8 @@ prepend_path( ".." rocfft_headers_public relative_rocfft_headers_public )
 
 add_library( rocfft ${rocfft_source} ${relative_rocfft_headers_public} )
 add_library( roc::rocfft ALIAS rocfft )
+set ( CMAKE_SHARED_LINKER_FLAGS "-Wl,--rpath,$ENV{ROCM_RPATH}" )
+
 target_compile_features( rocfft PRIVATE cxx_static_assert cxx_nullptr cxx_auto_type )
 
 # Remove this check when we no longer build with older rocm stack(ie < 1.8.2)
@@ -105,7 +107,9 @@ target_include_directories( rocfft
           $<INSTALL_INTERFACE:include>
 )
 
-rocm_set_soversion( rocfft ${rocfft_SOVERSION} )
+# This is incremented when the ABI to the library changes
+set_target_properties(rocfft PROPERTIES SOVERSION ${LIB_VERSION_MAJOR} )
+set_target_properties(rocfft PROPERTIES VERSION ${LIB_VERSION_STRING} )
 set_target_properties( rocfft PROPERTIES CXX_EXTENSIONS NO )
 set_target_properties( rocfft PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/staging" )
 set_target_properties( rocfft PROPERTIES DEBUG_POSTFIX "-d" )

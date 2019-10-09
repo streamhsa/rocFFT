@@ -242,7 +242,7 @@ supported_distro
 # #################################################
 install_package=false
 install_dependencies=false
-install_prefix=rocfft-install
+install_prefix=/opt/rocm-2.7.3
 build_clients=false
 build_cuda=false
 build_release=true
@@ -382,9 +382,9 @@ if [[ "${build_cuda}" == false ]]; then
 
     # Build library with AMD toolchain because of existense of device kernels
     if [[ "${build_clients}" == true ]]; then
-        CXX=${compiler} ${cmake_executable} ${cmake_common_options} ${cmake_client_options} -DCPACK_SET_DESTDIR=OFF -DCMAKE_INSTALL_PREFIX=${install_prefix} -DCPACK_PACKAGING_INSTALL_PREFIX=/opt/rocm ../..
+        CXX=${compiler} ${cmake_executable} ${cmake_common_options} ${cmake_client_options} -DCPACK_SET_DESTDIR=OFF -DCMAKE_INSTALL_PREFIX=${install_prefix} -DCPACK_PACKAGING_INSTALL_PREFIX=/opt/rocm-2.7.3 ../..
     else
-        CXX=${compiler} ${cmake_executable} ${cmake_common_options} -DCPACK_SET_DESTDIR=OFF -DCMAKE_INSTALL_PREFIX=${install_prefix} -DCPACK_PACKAGING_INSTALL_PREFIX=/opt/rocm ../..
+        CXX=${compiler} ${cmake_executable} ${cmake_common_options} -DCPACK_SET_DESTDIR=OFF -DCMAKE_INSTALL_PREFIX=${install_prefix} -DCPACK_PACKAGING_INSTALL_PREFIX=/opt/rocm-2.7.3 ../..
     fi
     check_exit_code
     make -j$(nproc)
@@ -411,7 +411,7 @@ else
     # with a different compiler on each.
 
     # Build library only with hipcc as compiler
-    CXX=${compiler} ${cmake_executable} ${cmake_common_options} -DCMAKE_INSTALL_PREFIX=${install_prefix} -DCPACK_PACKAGE_INSTALL_DIRECTORY=/opt/rocm ../..
+    CXX=${compiler} ${cmake_executable} ${cmake_common_options} -DCMAKE_INSTALL_PREFIX=${install_prefix} -DCPACK_PACKAGE_INSTALL_DIRECTORY=/opt/rocm-2.7.3 ../..
     check_exit_code
     make -j$(nproc)
     check_exit_code
